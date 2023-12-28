@@ -27,6 +27,15 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/logo.jpg">
     <link href="./output.css" rel="stylesheet">
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script>
+        // Check if lang parameter is present, if not, set it to 'ar'
+        const currentLang = new URLSearchParams(window.location.search).get('lang') || 'ar';
+        if (!new URLSearchParams(window.location.search).get('lang')) {
+            const newUrl = new URL(window.location.href);
+            newUrl.searchParams.set('lang', currentLang);
+            window.history.replaceState({}, '', newUrl);
+        }
+    </script>
 </head>
 
 <body>
@@ -35,19 +44,37 @@
             <div class="flex flex-wrap items-center justify-between max-w-screen-xl px-4 mx-auto">
                 <a href="#" class="flex items-center">
                     <img src="./logo.jpg" class="h-6 mr-3 sm:h-9" alt="Landwind Logo" />
-                    <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
+                    <span id="title" class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
                         بلازا بزاز للتجارة
                     </span>
                 </a>
                 <div class="flex items-center lg:order-2">
 
                     <!-- <a href="#" class="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 sm:mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">Log in</a> -->
-                    <a target="_blank" href="https://wa.me/9647504492032"
-                        class="text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 sm:mr-2 lg:mr-0 dark:bg-purple-600 dark:hover:bg-purple-700 focus:outline-none dark:focus:ring-purple-800">
+                    <button id="langToggleBtn" class="text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300
+                        font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 sm:mr-2 lg:mr-0 dark:bg-purple-600
+                        dark:hover:bg-purple-700 focus:outline-none dark:focus:ring-purple-800">
 
-                        واتساب
 
-                    </a>
+                        English
+                    </button>
+                    <script>
+                        function changeLanguage() {
+                            var contentDiv = document.getElementById('content');
+                            var textElement = document.getElementById('text');
+
+                            // Check the current language and toggle to the other language
+                            if (contentDiv.getAttribute('lang') === 'en') {
+                                contentDiv.setAttribute('lang', 'ar');
+                                contentDiv.setAttribute('dir', 'rtl');
+                                textElement.textContent = 'مرحبًا، هذا نص باللغة العربية.';
+                            } else {
+                                contentDiv.setAttribute('lang', 'en');
+                                contentDiv.setAttribute('dir', 'ltr');
+                                textElement.textContent = 'Hello, this is English text.';
+                            }
+                        }
+                    </script>
                     <button data-collapse-toggle="mobile-menu-2" type="button"
                         class="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
                         aria-controls="mobile-menu-2" aria-expanded="false">
@@ -65,8 +92,9 @@
                         </svg>
                     </button>
                 </div>
-                <div class="items-center justify-between hidden w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
-                    <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
+                <div id="list" class="items-center justify-between hidden w-full lg:flex lg:w-auto lg:order-1"
+                    id="mobile-menu-2">
+                    <ul id="list" class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
                         <li>
                             <a href="#home"
                                 class="block py-2 pl-3 pr-4 text-white bg-purple-700 rounded lg:bg-transparent lg:text-purple-700 lg:p-0 dark:text-white"
@@ -92,7 +120,16 @@
                         <li>
                             <a href="#contact"
                                 class="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">
-                                اتصل بنا</a>
+                                اتصل بنا
+
+
+                            </a>
+                        </li>
+                        <li>
+                            <a target="_blank" href="https://wa.me/9647504492032"
+                                class="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">
+                                واتساب
+                            </a>
                         </li>
                     </ul>
                 </div>
@@ -103,7 +140,7 @@
     <!-- Start block -->
     <section id="home" class="bg-white dark:bg-gray-900">
         <div class="grid max-w-screen-xl px-4 pt-20 pb-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 lg:pt-28">
-            <div dir="rtl" class="mr-auto place-self-center lg:col-span-7">
+            <div id="sectionOne" dir="rtl" class="mr-auto place-self-center lg:col-span-7">
                 <h1
                     class="max-w-2xl mb-4 text-4xl font-extrabold leading-none tracking-tight md:text-5xl xl:text-6xl dark:text-white">
                     بلازا بزاز للتجارة العامة </h1>
@@ -120,6 +157,7 @@
                 </p>
 
             </div>
+
 
             <div class="hidden lg:mt-0 lg:col-span-5 lg:flex">
                 <img src="./images/all.png" alt="hero image">
@@ -149,7 +187,7 @@
         <div class="max-w-screen-xl px-4 py-8 mx-auto space-y-12 lg:space-y-20 lg:py-24 lg:px-6">
             <!-- Row -->
             <div id="story" class="items-center gap-8 lg:grid lg:grid-cols-2 xl:gap-16">
-                <div dir="rtl" class="text-gray-500 sm:text-lg dark:text-gray-400">
+                <div dir="rtl" id="sectionTow" class="text-gray-500 sm:text-lg dark:text-gray-400">
                     <h2 class="mb-4 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">
                         قصتنا</h2>
                     <p class="mb-8 font-light lg:text-xl">
@@ -208,7 +246,7 @@
             <div id="share" class="items-center gap-8 lg:grid lg:grid-cols-2 xl:gap-16">
                 <img class="hidden w-full mb-4 rounded-lg lg:mb-0 lg:flex" src="./images/feature-2.png"
                     alt="feature image 2">
-                <div dir="rtl" class="text-gray-500 sm:text-lg dark:text-gray-400">
+                <div dir="rtl" id="sectionThree" class="text-gray-500 sm:text-lg dark:text-gray-400">
                     <h2 class="mb-4 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">آخر المشاركات
                     </h2>
                     <p class="mb-8 font-light lg:text-xl">
@@ -295,85 +333,16 @@
             </div>
         </div>
     </section>
-    <!-- End block -->
-    <!-- Start block -->
-    <!-- <section id="user" class="bg-white dark:bg-gray-900">
-        <div dir="rtl"
-            class="items-center max-w-screen-xl px-4 py-8 mx-auto lg:grid lg:grid-cols-4 lg:gap-16 xl:gap-24 lg:py-24 lg:px-6">
-            <div class="col-span-2 mb-8">
-                <p class="text-lg font-medium text-purple-600 dark:text-purple-500">موثوقة عالميًا</p>
-                <h2 class="mt-3 mb-4 text-3xl font-extrabold tracking-tight text-gray-900 md:text-3xl dark:text-white">
-                    ثقة المستخدمين الكثيرين</h2>
-                <p class="font-light text-gray-500 sm:text-xl dark:text-gray-400">نعتبر شركتنا وجهة موثوقة حيث يتزايد
-                    عدد المستفيدين من خدماتنا يوماً بعد يوم، حيث نقدم تجربة مميزة وموثوقة في
-                    عالم التكنولوجيا. اكتسبنا الثقة من خلال تقديم منتجات عالية الجودة وخدمة عملاء استثنائية. انضم إلينا
-                    اليوم واستمتع برحلة تكنولوجية تتسم بالجودة والاعتمادية.
 
-
-
-
-
-                </p>
-
-            </div>
-            <div class="col-span-2 space-y-8 md:grid md:grid-cols-2 md:gap-12 md:space-y-0">
-                <div>
-                    <svg class="w-10 h-10 mb-2 text-purple-600 md:w-12 md:h-12 dark:text-purple-500" fill="currentColor"
-                        viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd"
-                            d="M2 5a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 01-2 2H4a2 2 0 01-2-2V5zm14 1a1 1 0 11-2 0 1 1 0 012 0zM2 13a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 01-2 2H4a2 2 0 01-2-2v-2zm14 1a1 1 0 11-2 0 1 1 0 012 0z"
-                            clip-rule="evenodd"></path>
-                    </svg>
-                    <h3 class="mb-2 text-2xl font-bold dark:text-white">الجودة</h3>
-                    <p class="font-light text-gray-500 dark:text-gray-400">
-                        جودة تتحدث بذاتها
-                    </p>
-                </div>
-                <div>
-                    <svg class="w-10 h-10 mb-2 text-purple-600 md:w-12 md:h-12 dark:text-purple-500" fill="currentColor"
-                        viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z">
-                        </path>
-                    </svg>
-                    <h3 class="mb-2 text-2xl font-bold dark:text-white">المستخدمين</h3>
-                    <p class="font-light text-gray-500 dark:text-gray-400">موثوق بنا من قبل مستخدمين حول العالم</p>
-                </div>
-                <div>
-                    <svg class="w-10 h-10 mb-2 text-purple-600 md:w-12 md:h-12 dark:text-purple-500" fill="currentColor"
-                        viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd"
-                            d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6 7.5 6A1.5 1.5 0 019 7.5V8a2 2 0 004 0 2 2 0 011.523-1.943A5.977 5.977 0 0116 10c0 .34-.028.675-.083 1H15a2 2 0 00-2 2v2.197A5.973 5.973 0 0110 16v-2a2 2 0 00-2-2 2 2 0 01-2-2 2 2 0 00-1.668-1.973z"
-                            clip-rule="evenodd"></path>
-                    </svg>
-                    <h3 class="mb-2 text-2xl font-bold dark:text-white">عالميا</h3>
-                    <p class="font-light text-gray-500 dark:text-gray-400">
-                        نقدم منتجاتنا حول العالم
-                    </p>
-                </div>
-                <div>
-                    <svg class="w-10 h-10 mb-2 text-purple-600 md:w-12 md:h-12 dark:text-purple-500" fill="currentColor"
-                        viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z">
-                        </path>
-                    </svg>
-                    <h3 class="mb-2 text-2xl font-bold dark:text-white">المعاملات</h3>
-                    <p class="font-light text-gray-500 dark:text-gray-400"> المعاملات يوميًا</p>
-                </div>
-            </div>
-        </div>
-    </section> -->
-    <!-- End block -->
-    <!-- Start block -->
     <section id="faq" class="bg-white dark:bg-gray-900 pb-16">
         <div class="max-w-screen-xl px-4 pb-8 mx-auto lg:pb-24 lg:px-6 ">
-            <h2
-                class="mb-6 text-3xl font-extrabold tracking-tight text-center text-gray-900 lg:mb-8 lg:text-3xl dark:text-white">
-                الأسئلة المتكررة
+            <div dir="rtl" id="sectionFour" class="max-w-screen-md mx-auto">
+                <h2
+                    class="mb-6 text-3xl font-extrabold tracking-tight text-center text-gray-900 lg:mb-8 lg:text-3xl dark:text-white">
+                    الأسئلة المتكررة
 
-            </h2>
-            <div dir="rtl" class="max-w-screen-md mx-auto">
+                </h2>
+
                 <div id="accordion-flush" data-accordion="collapse"
                     data-active-classes="bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
                     data-inactive-classes="text-gray-500 dark:text-gray-400">
@@ -514,7 +483,7 @@
     </section>
     <!-- End block -->
     <footer class="bg-white dark:bg-gray-800">
-        <div class="max-w-screen-xl p-4 py-6 mx-auto lg:py-16 md:p-8 lg:p-10">
+        <div id="foot" class="max-w-screen-xl p-4 py-6 mx-auto lg:py-16 md:p-8 lg:p-10">
 
             <hr class=" border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8">
             <div class="text-center">
@@ -531,6 +500,693 @@
         </div>
     </footer>
     <script src="https://unpkg.com/flowbite@1.4.1/dist/flowbite.js"></script>
+
+    <script>
+        document.getElementById('langToggleBtn').addEventListener('click', toggleLanguage);
+
+        function toggleLanguage() {
+            const languages = ['en', 'ar'];
+            const currentLang = getUrlParameter('lang') || languages[0];
+            const nextLang = languages.find(lang => lang !== currentLang) || languages[0];
+            setUrlParameter('lang', nextLang);
+        }
+
+        function getUrlParameter(name) {
+            const regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)");
+            const results = regex.exec(window.location.href);
+            return results ? decodeURIComponent(results[2].replace(/\+/g, " ")) : null;
+        }
+
+        function setUrlParameter(key, value) {
+            const url = new URL(window.location.href);
+            url.searchParams.set(key, value);
+            window.history.replaceState({}, '', url);
+        }
+    </script>
+
+    <script>
+        document.getElementById('langToggleBtn').addEventListener('click', toggleLanguage);
+
+        function toggleLanguage() {
+            const sectionOne = document.getElementById('sectionOne');
+            const sectionTow = document.getElementById('sectionTow');
+            const sectionThree = document.getElementById('sectionThree');
+            const sectionContact = document.getElementById('contact');
+            const sectionTitle = document.getElementById('title');
+            const sectionFoot = document.getElementById('foot');
+            const sectionList = document.getElementById('list');
+            const sectionLang = document.getElementById('langToggleBtn');
+
+
+            const currentLang = getUrlParameter('lang');
+
+            if (currentLang === 'ar') {
+                sectionLang.innerHTML = `
+                English 
+`
+                sectionList.innerHTML = `
+                <ul id="list" class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
+                        <li>
+                            <a href="#home"
+                                class="block py-2 pl-3 pr-4 text-white bg-purple-700 rounded lg:bg-transparent lg:text-purple-700 lg:p-0 dark:text-white"
+                                aria-current="page">الرئيسية</a>
+                        </li>
+                        <li>
+                            <a href="#story"
+                                class="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">قصتنا</a>
+                        </li>
+                        <li>
+                            <a href="#share"
+                                class="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">آخر
+                                المشاركات</a>
+                        </li>
+
+                        <li>
+                            <a href="#faq"
+                                class="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">الأسئلة
+                                المتكررة
+
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#contact"
+                                class="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">
+                                اتصل بنا
+
+
+                            </a>
+                        </li>
+                        <li>
+                            <a target="_blank" href="https://wa.me/9647504492032"
+                                class="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">
+                                واتساب
+                            </a>
+                        </li>
+                    </ul>
+                `
+
+                sectionTitle.innerHTML = `
+                بلازا بزاز للتجارة
+                `
+
+                sectionOne.dir = 'rtl';
+                sectionOne.innerHTML = `
+<h1 class="max-w-2xl mb-4 text-4xl font-extrabold leading-none tracking-tight md:text-5xl xl:text-6xl dark:text-white">
+بلازا بزاز للتجارة العامة
+</h1>
+<p class="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">
+شركة الكترونيات وكهربائيات تم تآسيسها بتاريخ 28/02/2007 مبدعة في توزيع أفضل منتجات التكنولوجيا مثل الهواتف، الشاشات، الساعات الذكية، وسماعات الأذن اللاسلكية وغيرها. نستورد المنتجات من الصين والامارات وهونج كونج ولدينا مخازن ومحلات في العراق حيث نقدم تجارب فائقة للعملاء، ونسعى جاهدين لتحقيق التميز في عالم الإلكترونيات المتقدمة.
+</p>
+`
+
+                sectionTow.dir = 'rtl';
+                sectionTow.innerHTML = `
+            <h2 class="mb-4 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">
+            قصتنا</h2>
+        <p class="mb-8 font-light lg:text-xl">
+            قصتنا تبدأ برؤية ملهمة لتقديم التكنولوجيا بطريقة متميزة. تأسست شركتنا للالكترونيات برغبة في
+            إحداث تحول في تجربة المستخدم، حيث نجمع بين الأداء الفائق والتصميم الراقي. بدأنا توزيع
+            أجهزة مبتكرة مثل الموبايلات والشاشات والساعات الذكية وسماعات الأذن، ملتزمين بتلبية تطلعات
+            عملائنا وتقديم تكنولوجيا تلهم حياتهم اليومية.</p>
+        <!-- List -->
+        <ul role="list" class="pt-8 space-y-5 border-t border-gray-200 my-7 dark:border-gray-700">
+            <li class="flex space-x-3">
+                <!-- Icon -->
+                <svg class="flex-shrink-0 w-5 h-5 text-purple-500 dark:text-purple-400" fill="currentColor"
+                    viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                        clip-rule="evenodd"></path>
+                </svg>
+                <span class="text-base font-medium leading-tight text-gray-900 dark:text-white">استمرارية
+                    التطور: نحن دائماً في رحلة تحسين وتطوير منتجاتنا لتلبية تطلعات السوق واحتياجات العملاء.
+                </span>
+            </li>
+            <li class="flex space-x-3">
+                <!-- Icon -->
+                <svg class="flex-shrink-0 w-5 h-5 text-purple-500 dark:text-purple-400" fill="currentColor"
+                    viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                        clip-rule="evenodd"></path>
+                </svg>
+                <span class="text-base font-medium leading-tight text-gray-900 dark:text-white">الجودة: نضمن
+                    دائماً الجودة العالية في كل منتج نقدمه.
+                </span>
+            </li>
+            <li class="flex space-x-3">
+                <!-- Icon -->
+                <svg class="flex-shrink-0 w-5 h-5 text-purple-500 dark:text-purple-400" fill="currentColor"
+                    viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                        clip-rule="evenodd"></path>
+                </svg>
+                <span class="text-base font-medium leading-tight text-gray-900 dark:text-white">رضا العملاء:
+                    نسعى جاهدين لتحقيق رضا العملاء من خلال خدمة ممتازة وتجربة فريدة.
+                </span>
+            </li>
+        </ul>
+        <p class="mb-8 font-light lg:text-xl">قاعدتنا تستند إلى الابتكار والجودة. نحن نفخر بتقديم منتجات
+            إلكترونية مبتكرة تحقق رضا العملاء. رحلتنا مستمرة، ملتزمون بالتطوير المستدام وتقديم تجارب فريدة
+            في عالم التكنولوجيا.
+        </p>
+`;
+                sectionThree.dir = 'rtl';
+                sectionThree.innerHTML = `
+            <h2 class="mb-4 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">آخر المشاركات
+        </h2>
+        <p class="mb-8 font-light lg:text-xl">
+
+            نود أن نشارككم أحدث التطورات والابتكارات في عالمنا المتنوع. تمثل هذه المشاركات نافذة إلى عالم
+            تكنولوجي مثير، حيث نقدم لكم نظرة داخلية على منتجاتنا الحديثة والتقنيات الرائدة واستعراضات لأحدث
+            الأجهزة.
+
+            من خلال آخر المشاركات، نسعى لتوفير معلومات شيقة ومفيدة تساهم في توجيهكم نحو اتخاذ قرارات مستنيرة
+            في مجال التكنولوجيا.
+        </p>
+        <!-- List -->
+        <ul role="list" class="pt-8 space-y-5 border-t border-gray-200 my-7 dark:border-gray-700">
+            <li class="flex space-x-3">
+                <!-- Icon -->
+                <svg class="flex-shrink-0 w-5 h-5 text-purple-500 dark:text-purple-400" fill="currentColor"
+                    viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                        clip-rule="evenodd"></path>
+                </svg>
+                <span class="text-base font-medium leading-tight text-gray-900 dark:text-white">تجارب
+                    المستخدمين: قصص وتجارب ملهمة لعملائنا مع منتجاتنا.
+                </span>
+            </li>
+            <li class="flex space-x-3">
+                <!-- Icon -->
+                <svg class="flex-shrink-0 w-5 h-5 text-purple-500 dark:text-purple-400" fill="currentColor"
+                    viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                        clip-rule="evenodd"></path>
+                </svg>
+                <span class="text-base font-medium leading-tight text-gray-900 dark:text-white">قصص النجاح:
+                    قصص نجاح عن كيفية استفادة العملاء من منتجاتنا في حياتهم اليومية.
+                </span>
+            </li>
+            <li class="flex space-x-3">
+                <!-- Icon -->
+                <svg class="flex-shrink-0 w-5 h-5 text-purple-500 dark:text-purple-400" fill="currentColor"
+                    viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                        clip-rule="evenodd"></path>
+                </svg>
+                <span class="text-base font-medium leading-tight text-gray-900 dark:text-white">منتجات
+                    جديدة: استعراض أحدث منتجاتنا مع ميزاتها وأدائها المبهر.
+                </span>
+            </li>
+            <li class="flex space-x-3">
+                <!-- Icon -->
+                <svg class="flex-shrink-0 w-5 h-5 text-purple-500 dark:text-purple-400" fill="currentColor"
+                    viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                        clip-rule="evenodd"></path>
+                </svg>
+                <span class="text-base font-medium leading-tight text-gray-900 dark:text-white">عروض حصرية:
+                    اطلع على أحدث العروض والصفقات الحصرية لعملاءنا.
+                </span>
+            </li>
+            <li class="flex space-x-3">
+                <!-- Icon -->
+                <svg class="flex-shrink-0 w-5 h-5 text-purple-500 dark:text-purple-400" fill="currentColor"
+                    viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                        clip-rule="evenodd"></path>
+                </svg>
+                <span class="text-base font-medium leading-tight text-gray-900 dark:text-white">تواصل معنا:
+                    فرص للتفاعل المباشر مع فريقنا والمشاركة في مناقشات مثيرة.
+                </span>
+            </li>
+        </ul>
+        <p class="font-light lg:text-xl">استمتع بآخر المستجدات والتطورات في عالمنا التكنولوجي. اطلع على قصص
+            نجاح العملاء واستمتع بتجارب فريدة. اكتشف التقنيات الحديثة واستمتع بفوائد العروض الحصرية.
+
+
+
+
+
+        </p>
+
+`
+
+                sectionFour.dir = 'rtl';
+                sectionFour.innerHTML = `
+                <h2
+                    class="mb-6 text-3xl font-extrabold tracking-tight text-center text-gray-900 lg:mb-8 lg:text-3xl dark:text-white">
+                    الأسئلة المتكررة
+
+                </h2>
+                
+                <div id="accordion-flush" data-accordion="collapse"
+                    data-active-classes="bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
+                    data-inactive-classes="text-gray-500 dark:text-gray-400">
+                    <h3 id="accordion-flush-heading-1">
+                        <button type="button"
+                            class="flex items-center justify-between w-full py-5 font-medium text-left text-gray-900 bg-white border-b border-gray-200 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
+                            data-accordion-target="#accordion-flush-body-1" aria-expanded="true"
+                            aria-controls="accordion-flush-body-1">
+                            <span> هل منتجاتكم عالية الجودة؟</span>
+                            <svg data-accordion-icon="" class="w-6 h-6 rotate-180 shrink-0" fill="currentColor"
+                                viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                        </button>
+                    </h3>
+                    <div id="accordion-flush-body-1" class="" aria-labelledby="accordion-flush-heading-1">
+                        <div class="py-5 border-b border-gray-200 dark:border-gray-700">
+                            <p class="mb-2 text-gray-500 dark:text-gray-400">
+                                نعم، نحن فخورون بتقديم منتجات عالية الجودة باستمرار.
+
+                            </p>
+                        </div>
+                    </div>
+                    <h3 id="accordion-flush-heading-2">
+                        <button type="button"
+                            class="flex items-center justify-between w-full py-5 font-medium text-left text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400"
+                            data-accordion-target="#accordion-flush-body-2" aria-expanded="false"
+                            aria-controls="accordion-flush-body-2">
+                            <span>كيف يمكنني الحصول على منتجاتكم؟</span>
+                            <svg data-accordion-icon="" class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                        </button>
+                    </h3>
+                    <div id="accordion-flush-body-2" class="hidden" aria-labelledby="accordion-flush-heading-2">
+                        <div class="py-5 border-b border-gray-200 dark:border-gray-700">
+                            <p class="mb-2 text-gray-500 dark:text-gray-400">يمكنك شراء منتجاتنا من خلال متاجرنا الرسمية
+                                أو من شركاء التوزيع المعتمدين.
+
+                            </p>
+                        </div>
+                    </div>
+                    <h3 id="accordion-flush-heading-3">
+                        <button type="button"
+                            class="flex items-center justify-between w-full py-5 font-medium text-left text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400"
+                            data-accordion-target="#accordion-flush-body-3" aria-expanded="false"
+                            aria-controls="accordion-flush-body-3">
+                            <span>كيف يمكنني التواصل مع فريق الدعم الفني؟</span>
+                            <svg data-accordion-icon="" class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                        </button>
+                    </h3>
+                    <div id="accordion-flush-body-3" class="hidden" aria-labelledby="accordion-flush-heading-3">
+                        <div class="py-5 border-b border-gray-200 dark:border-gray-700">
+                            <p class="mb-2 text-gray-500 dark:text-gray-400">يمكنك التواصل معنا عبر البريد الإلكتروني أو
+                                الهاتف.</p>
+                            <p class="mb-2 text-gray-500 dark:text-gray-400">تفضل بالاتصال بنا :</p>
+                            <ul class="pl-5 text-gray-500 list-disc dark:text-gray-400">
+                                <li><a href="mailto: bazaz_plaza@yahoo.com"
+                                        class="text-purple-600 dark:text-purple-500 hover:underline">
+
+                                        bazaz_plaza@yahoo.com
+                                    </a></li>
+                                <li><a href="tel:+9647504492032"
+                                        class="text-purple-600 dark:text-purple-500 hover:underline">
+
+                                        009647504492032
+                                    </a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <h3 id="accordion-flush-heading-4">
+                        <button type="button"
+                            class="flex items-center justify-between w-full py-5 font-medium text-left text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400"
+                            data-accordion-target="#accordion-flush-body-4" aria-expanded="false"
+                            aria-controls="accordion-flush-body-4">
+                            <span>هل توفرون دعم فني على مدار الساعة؟</span>
+                            <svg data-accordion-icon="" class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                        </button>
+                    </h3>
+                    <div id="accordion-flush-body-4" class="hidden" aria-labelledby="accordion-flush-heading-4">
+                        <div class="py-5 border-b border-gray-200 dark:border-gray-700">
+                            <p class="mb-2 text-gray-500 dark:text-gray-400">نعم، نقدم دعمًا فنيًا على مدار الساعة.
+                                يمكنكم الاتصال بنا أو زيارة صفحة الدعم للحصول على المساعدة.
+
+                            </p>
+
+                        </div>
+                    </div>
+                </div>
+                `
+
+                sectionContact.innerHTML = `
+                <div class="max-w-screen-xl px-4 py-8 mx-auto lg:py-16 lg:px-6">
+            <div class="max-w-screen-sm mx-auto text-center">
+                <h2 class="mb-4 text-3xl font-extrabold leading-tight tracking-tight text-gray-900 dark:text-white">
+                    اتصل بنا</h2>
+                <p class="mb-6 font-light text-gray-500 dark:text-gray-400 md:text-lg"> نحن هنا لأجلك، دائمًا جاهزون
+                    لاستقبال استفساراتك وتقديم المساعدة. يسعدنا التواصل معكم عبر مجموعة من وسائل الاتصال، بما في ذلك
+                    البريد الإلكتروني ورقم الهاتف المخصص لخدمتكم.
+
+                </p>
+                <ul class="pl-5 text-gray-500  dark:text-gray-400">
+                    <li><a href="mailto: bazaz_plaza@yahoo.com"
+                            class="text-purple-600 dark:text-purple-500 hover:underline">
+
+                            bazaz_plaza@yahoo.com
+                        </a></li>
+                    <li><a href="tel:+9647504492032" class="text-purple-600 dark:text-purple-500 hover:underline">
+
+                            009647504492032
+                        </a></li>
+
+                    <li><a href="https://maps.app.goo.gl/3DNgNwUaWcM6RZ1c9" target="_blank"
+                            class="text-purple-600 dark:text-purple-500 hover:underline">
+                            العراق - اربيل - شارع الاسكان
+                        </a></li>
+                </ul>
+            </div>
+        </div>
+                `
+
+                sectionFoot.innerHTML = `
+                <hr class="border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8">
+<div class="text-center">
+    <a href="#" class="flex items-center justify-center mb-5 text-2xl font-semibold text-gray-900 dark:text-white">
+        <img src="./logo.jpg" class="h-6 mr-3 sm:h-9" alt="Landwind Logo" />
+        بلازا بزاز للتجارة العامة
+    </a>
+    <span class="block text-sm text-center text-gray-500 dark:text-gray-400">
+        العراق - اربيل - شارع الاسكان
+    </span>
+</div>
+
+           `
+            }
+
+            if (currentLang === 'en') {
+                sectionLang.innerHTML = `
+                العربية 
+`
+                sectionList.innerHTML = `
+                <ul id="list" class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
+    <li>
+        <a href="#home" class="block py-2 pl-3 pr-4 text-white bg-purple-700 rounded lg:bg-transparent lg:text-purple-700 lg:p-0 dark:text-white" aria-current="page">Home</a>
+    </li>
+    <li>
+        <a href="#story" class="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Our Story</a>
+    </li>
+    <li>
+        <a href="#share" class="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Latest Posts</a>
+    </li>
+    <li>
+        <a href="#faq" class="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">FAQs</a>
+    </li>
+    <li>
+        <a href="#contact" class="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Contact Us</a>
+    </li>
+    <li>
+        <a target="_blank" href="https://wa.me/9647504492032" class="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">WhatsApp</a>
+    </li>
+</ul>
+
+                `
+
+                sectionTitle.innerHTML = `
+                Plaza Bazaz General Trading
+
+                `
+                sectionOne.dir = 'ltr';
+                sectionOne.innerHTML = `
+                    <h1 class="max-w-2xl mb-4 text-4xl font-extrabold leading-none tracking-tight md:text-5xl xl:text-6xl dark:text-white">
+                        Plaza Bazaz General Trading Company
+                    </h1>
+                    <p class="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">
+                        An electronics and electrical company, established on 28/02/2007, excelling in distributing the finest technology products such as phones, screens, smartwatches, wireless earphones, and more. We import products from China, the United Arab Emirates, and Hong Kong, and have stores in Iraq where we provide exceptional experiences for customers. We strive diligently to achieve excellence in the world of advanced electronics.
+                    </p>
+                    `
+                sectionTow.dir = 'ltr';
+                sectionTow.innerHTML = `
+            <h2 class="mb-4 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">
+                Our Story </h2>
+        <p class="mb-8 font-light lg:text-xl">
+            Our story begins with an inspiring vision to present technology in a distinctive manner. Our electronics company was founded with a desire to bring about a transformation in user experience, combining exceptional performance with elegant design. We started distributing innovative devices such as mobile phones, screens, smartwatches, and earphones, committed to meeting the expectations of our customers and providing technology that inspires their daily lives.</p>
+        <!-- List -->
+        <ul role="list" class="pt-8 space-y-5 border-t border-gray-200 my-7 dark:border-gray-700">
+            <li class="flex space-x-3">
+                <!-- Icon -->
+                <svg class="flex-shrink-0 w-5 h-5 text-purple-500 dark:text-purple-400" fill="currentColor"
+                    viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                        clip-rule="evenodd"></path>
+                </svg>
+                <span class="text-base font-medium leading-tight text-gray-900 dark:text-white">
+                    Continuity of Evolution: We are always on a journey of improvement and development, enhancing our products to meet the market's expectations and the needs of our customers.
+                    </span>
+            </li>
+            <li class="flex space-x-3">
+                <!-- Icon -->
+                <svg class="flex-shrink-0 w-5 h-5 text-purple-500 dark:text-purple-400" fill="currentColor"
+                    viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                        clip-rule="evenodd"></path>
+                </svg>
+                <span class="text-base font-medium leading-tight text-gray-900 dark:text-white">
+                    Quality: We consistently ensure high quality in every product we offer.
+                </span>
+            </li>
+            <li class="flex space-x-3">
+                <!-- Icon -->
+                <svg class="flex-shrink-0 w-5 h-5 text-purple-500 dark:text-purple-400" fill="currentColor"
+                    viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                        clip-rule="evenodd"></path>
+                </svg>
+                <span class="text-base font-medium leading-tight text-gray-900 dark:text-white">
+                    Customer Satisfaction: We strive diligently to achieve customer satisfaction through excellent service and a unique experience.
+                </span>
+            </li>
+        </ul>
+        <p class="mb-8 font-light lg:text-xl">
+            Our foundation is built on innovation and quality. We take pride in delivering innovative electronic products that achieve customer satisfaction. Our journey is ongoing, committed to sustainable development and providing unique experiences in the world of technology.
+        </p> 
+        
+        `
+                sectionThree.dir = 'ltr';
+                sectionThree.innerHTML = `
+                                                        <h2 class="mb-4 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">Latest Posts</h2>
+                                                <p class="mb-8 font-light lg:text-xl">
+                                                We want to share with you the latest developments and innovations in our diverse world. These posts represent a window into an exciting technological world, where we provide you with an inside look at our modern products, cutting-edge technologies, and reviews of the latest devices.
+
+                                                Through our latest posts, we strive to provide interesting and useful information that contributes to guiding you in making informed decisions in the field of technology.
+                                                </p>
+                                                <!-- List -->
+                                                <ul role="list" class="pt-8 space-y-5 border-t border-gray-200 my-7 dark:border-gray-700">
+                                                <li class="flex space-x-3">
+                                                <!-- Icon -->
+                                                <svg class="flex-shrink-0 w-5 h-5 text-purple-500 dark:text-purple-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                                </svg>
+                                                <span class="text-base font-medium leading-tight text-gray-900 dark:text-white">User Experiences: Inspiring stories and experiences of our customers with our products.</span>
+                                                </li>
+                <li class="flex space-x-3">
+                <!-- Icon -->
+                <svg class="flex-shrink-0 w-5 h-5 text-purple-500 dark:text-purple-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                </svg>
+                <span class="text-base font-medium leading-tight text-gray-900 dark:text-white">Success Stories: Success stories about how customers benefit from our products in their daily lives.</span>
+                </li>
+                <li class="flex space-x-3">
+                <!-- Icon -->
+                <svg class="flex-shrink-0 w-5 h-5 text-purple-500 dark:text-purple-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                </svg>
+                <span class="text-base font-medium leading-tight text-gray-900 dark:text-white">New Products: Reviewing our latest products with their exciting features and performance.</span>
+                </li>
+                <li class="flex space-x-3">
+                <!-- Icon -->
+                <svg class="flex-shrink-0 w-5 h-5 text-purple-500 dark:text-purple-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                </svg>
+                <span class="text-base font-medium leading-tight text-gray-900 dark:text-white">Exclusive Offers: Check out our latest exclusive offers and deals for our customers.</span>
+                </li>
+                <li class="flex space-x-3">
+                <!-- Icon -->
+                <svg class="flex-shrink-0 w-5 h-5 text-purple-500 dark:text-purple-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                </svg>
+                <span class="text-base font-medium leading-tight text-gray-900 dark:text-white">Contact Us: Opportunities for direct interaction with our team and engaging in exciting discussions.</span>
+                </li>
+                </ul>
+                <p class="font-light lg:text-xl">Enjoy the latest updates and developments in our technological world. Explore customer success stories and indulge in unique experiences. Discover modern technologies and enjoy the benefits of exclusive offers.</p>
+
+        `
+
+                sectionFour.dir = 'ltr';
+                sectionFour.innerHTML = `
+                                <h2 class="mb-6 text-3xl font-extrabold tracking-tight text-center text-gray-900 lg:mb-8 lg:text-3xl dark:text-white">
+                    Frequently Asked Questions
+                </h2>
+
+                <div id="accordion-flush" data-accordion="collapse"
+                    data-active-classes="bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
+                    data-inactive-classes="text-gray-500 dark:text-gray-400">
+
+                    <h3 id="accordion-flush-heading-1">
+                        <button type="button"
+                            class="flex items-center justify-between w-full py-5 font-medium text-left text-gray-900 bg-white border-b border-gray-200 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
+                            data-accordion-target="#accordion-flush-body-1" aria-expanded="true"
+                            aria-controls="accordion-flush-body-1">
+                            <span>Are your products of high quality?</span>
+                            <svg data-accordion-icon="" class="w-6 h-6 rotate-180 shrink-0" fill="currentColor"
+                                viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                        </button>
+                    </h3>
+
+                    <div id="accordion-flush-body-1" class="" aria-labelledby="accordion-flush-heading-1">
+                        <div class="py-5 border-b border-gray-200 dark:border-gray-700">
+                            <p class="mb-2 text-gray-500 dark:text-gray-400">Yes, we are continuously proud to offer high-quality products.</p>
+                        </div>
+                    </div>
+
+                    <h3 id="accordion-flush-heading-2">
+                        <button type="button"
+                            class="flex items-center justify-between w-full py-5 font-medium text-left text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400"
+                            data-accordion-target="#accordion-flush-body-2" aria-expanded="false"
+                            aria-controls="accordion-flush-body-2">
+                            <span>How can I purchase your products?</span>
+                            <svg data-accordion-icon="" class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                        </button>
+                    </h3>
+
+                    <div id="accordion-flush-body-2" class="hidden" aria-labelledby="accordion-flush-heading-2">
+                        <div class="py-5 border-b border-gray-200 dark:border-gray-700">
+                            <p class="mb-2 text-gray-500 dark:text-gray-400">You can purchase our products through our official stores or authorized distribution partners.</p>
+                        </div>
+                    </div>
+
+                    <h3 id="accordion-flush-heading-3">
+                        <button type="button"
+                            class="flex items-center justify-between w-full py-5 font-medium text-left text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400"
+                            data-accordion-target="#accordion-flush-body-3" aria-expanded="false"
+                            aria-controls="accordion-flush-body-3">
+                            <span>How can I contact the technical support team?</span>
+                            <svg data-accordion-icon="" class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                        </button>
+                    </h3>
+
+                    <div id="accordion-flush-body-3" class="hidden" aria-labelledby="accordion-flush-heading-3">
+                        <div class="py-5 border-b border-gray-200 dark:border-gray-700">
+                            <p class="mb-2 text-gray-500 dark:text-gray-400">You can contact us via email or phone.</p>
+                            <p class="mb-2 text-gray-500 dark:text-gray-400">Feel free to contact us:</p>
+                            <ul class="pl-5 text-gray-500 list-disc dark:text-gray-400">
+                                <li><a href="mailto: bazaz_plaza@yahoo.com" class="text-purple-600 dark:text-purple-500 hover:underline">bazaz_plaza@yahoo.com</a></li>
+                                <li><a href="tel:+9647504492032" class="text-purple-600 dark:text-purple-500 hover:underline">009647504492032</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h3 id="accordion-flush-heading-4">
+                        <button type="button"
+                            class="flex items-center justify-between w-full py-5 font-medium text-left text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400"
+                            data-accordion-target="#accordion-flush-body-4" aria-expanded="false"
+                            aria-controls="accordion-flush-body-4">
+                            <span>Do you provide 24/7 technical support?</span>
+                            <svg data-accordion-icon="" class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 
+
+                `
+
+                sectionContact.innerHTML = `
+                <div class="max-w-screen-xl px-4 py-8 mx-auto lg:py-16 lg:px-6">
+    <div class="max-w-screen-sm mx-auto text-center">
+        <h2 class="mb-4 text-3xl font-extrabold leading-tight tracking-tight text-gray-900 dark:text-white">
+            Contact Us
+        </h2>
+        <p class="mb-6 font-light text-gray-500 dark:text-gray-400 md:text-lg">
+            We are here for you, always ready to receive your inquiries and provide assistance.
+            We are pleased to communicate with you through various contact methods, including email and a dedicated phone number for your service.
+        </p>
+        <ul class="pl-5 text-gray-500 dark:text-gray-400">
+            <li>
+                <a href="mailto: bazaz_plaza@yahoo.com" class="text-purple-600 dark:text-purple-500 hover:underline">
+                    bazaz_plaza@yahoo.com
+                </a>
+            </li>
+            <li>
+                <a href="tel:+9647504492032" class="text-purple-600 dark:text-purple-500 hover:underline">
+                    009647504492032
+                </a>
+            </li>
+            <li>
+                <a href="https://maps.app.goo.gl/3DNgNwUaWcM6RZ1c9" target="_blank" class="text-purple-600 dark:text-purple-500 hover:underline">
+                    Iraq - Erbil - Eskan Street
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+`
+
+                sectionFoot.innerHTML = `
+                <hr class="border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8">
+                <div class="text-center">
+                    <a href="#" class="flex items-center justify-center mb-5 text-2xl font-semibold text-gray-900 dark:text-white">
+                        <img src="./logo.jpg" class="h-6 mr-3 sm:h-9" alt="Landwind Logo" />
+                        Plaza Bazaz General Trading
+                    </a>
+                    <span class="block text-sm text-center text-gray-500 dark:text-gray-400">
+                        Iraq - Erbil - Housing Street
+                    </span>
+                </div>
+
+
+           `
+
+
+            }
+        }
+
+        function getUrlParameter(name) {
+            const regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)");
+            const results = regex.exec(window.location.href);
+            return results ? decodeURIComponent(results[2].replace(/\+/g, " ")) : null;
+        }
+    </script>
 </body>
 
 </html>
